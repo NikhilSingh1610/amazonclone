@@ -19,66 +19,48 @@
             </ul>
         </nav>
         <div class="search-bar">
-            <input type="text" placeholder="Search products">
-            <button>Search</button>
+            <input type="text" id="search-input" placeholder="Search products">
+            <button onclick="searchProducts()">Search</button>
         </div>
+        <div class="cart">
+            <span>Cart: <span id="cart-count">0</span></span>
+        </div>
+        <button onclick="toggleDarkMode()">Dark Mode</button>
     </header>
 
     <main>
         <section class="featured-products">
             <h2>Featured Products</h2>
-            <div class="product">
+            <div class="product" data-name="Product 1">
                 <img src="product1.jpg" alt="Product 1">
                 <h3>Product 1</h3>
-                <p>&999.99</p>
+                <p>$999.99</p>
+                <button onclick="addToCart()">Add to Cart</button>
             </div>
-            <div class="product">
-                <img src="product 2.jpg"Product 2">
+            <div class="product" data-name="Product2">
+                <img src="product 2.jpg" alt="Product 2">
                 <h3>Product 2</h3>
-                <p>$9999.99</p>
+                <p>$8999.99</p>
+                <button onclick="addToCart()">Add to Cart</button>
             </div>
-            <div class="product">
+            <div class="product" data-name="Product 3">
                 <img src="product3.webp" alt="Product 3">
                 <h3>Product 3</h3>
                 <p>$559.99</p>
+                <button onclick="addToCart()">Add to Cart</button>
             </div>
         </section>
 
-        <section class="categories">
-            <h2>Shop by Category</h2>
-            <div class="category-list">
-                <div class="category">Electronics</div>
-                <div class="category">Fashion</div>
-                <div class="category">Home & Kitchen</div>
-                <div class="category">Books</div>
-                <div class="category">Toys & Games</div>
-                <div class="category">Sports</div>
-            </div>
-        </section>
-
-        <section class="customer-reviews">
-            <h2>Customer Reviews</h2>
-            <div class="review">
-                <h3>John Doe</h3>
-                <p>"I love shopping on Amazon! The delivery is always fast, and the products are great quality!"</p>
-            </div>
-            <div class="review">
-                <h3>Jane Smith</h3>
-                <p>"Excellent customer service! I had an issue with my order, and they resolved it quickly."</p>
-            </div>
-            <div class="review">
-                <h3>Bob Johnson</h3>
-                <p>"Great selection of products at competitive prices. My go-to place for online shopping!"</p>
-            </div>
-        </section>
+        <!-- Additional Sections... -->
     </main>
 
     <footer>
         <p>&copy; 2023 Amazon Clone. All rights reserved.</p>
     </footer>
-</body>
 
+</body>
 </html>
+
 
 
 
@@ -216,4 +198,69 @@
             bottom: 0;
             width: 100%;
         }
-    </style>
+    
+    /* Dark Mode */
+    body.dark-mode {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+    
+    header.dark-mode {
+        background-color: #333;
+    }
+    
+    footer.dark-mode {
+        background-color: #333;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        nav ul {
+            flex-direction: column;
+            gap: 10px;
+        }
+    
+        .featured-products {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .product {
+            width: 100%;
+            margin: 10px 0;
+        }
+    }
+ </style>
+ <script>
+    let cartCount = 0;
+    
+    
+    function addToCart() {
+        cartCount++;
+        document.getElementById('cart-count').innerText = cartCount;
+    }
+    
+    
+    function toggleDarkMode() {
+        document.body.classList.toggle('dark-mode');
+        document.querySelector('header').classList.toggle('dark-mode');
+        document.querySelector('footer').classList.toggle('dark-mode');
+    }
+    
+    
+    function searchProducts() {
+        const searchQuery = document.getElementById('search-input').value.toLowerCase();
+        const products = document.querySelectorAll('.product');
+    
+        products.forEach(product => {
+            const productName = product.getAttribute('data-name').toLowerCase();
+            if (productName.includes(searchQuery)) {
+                product.style.display = "inline-block";
+            } else {
+                product.style.display = "none";
+            }
+        });
+    }
+    </script>
+
+ 
